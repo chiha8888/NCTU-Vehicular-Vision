@@ -17,23 +17,27 @@ while True:
         break
 
     fgMask=backSub.apply(preprocess(frame))
-    fgMask=postprocess(fgMask)
+    fgMask=postprocess(fgMask,11,1)
 
     cv2.imshow('frame',frame)
     cv2.imshow('fgMask',fgMask)
     plt.show()
-    cv2.waitKey(10)
+    cv2.waitKey(1)
 
+    count += 1
 
-    if os.path.isfile(os.path.join(os.path.join('HW1_dataset','groundtruth'),'gt{:0>6d}.png'.format(count))):
-        plt.figure()
-        plt.subplot(1,2,1)
-        plt.axis('off')
-        plt.imshow(plt.imread(os.path.join(os.path.join('HW1_dataset','groundtruth'),'gt{:0>6d}.png'.format(count))))
-        plt.subplot(1,2,2)
-        fgMask=cv2.cvtColor(fgMask,cv2.COLOR_BGR2RGB)
-        plt.imshow(fgMask,cmap='gray')
-        plt.axis('off')
-        plt.savefig(os.path.join('vs','{}.png'.format(count)))
-        plt.close()
-    count+=1
+'''
+#save pic for comparing
+if os.path.isfile(os.path.join(os.path.join('HW1_dataset','groundtruth'),'gt{:0>6d}.png'.format(count))):
+    plt.figure()
+    plt.subplot(1,2,1)
+    plt.axis('off')
+    plt.imshow(plt.imread(os.path.join(os.path.join('HW1_dataset','groundtruth'),'gt{:0>6d}.png'.format(count))))
+    plt.subplot(1,2,2)
+    fgMask=cv2.cvtColor(fgMask,cv2.COLOR_BGR2RGB)
+    plt.imshow(fgMask,cmap='gray')
+    plt.axis('off')
+    plt.savefig(os.path.join('vs','{}.png'.format(count)))
+    plt.close()
+count+=1
+'''

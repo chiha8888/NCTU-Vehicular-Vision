@@ -1,0 +1,11 @@
+{
+ "argv": [
+  "/home/dorawu/anaconda3/envs/tf2.0/bin/python",
+  "-m",
+  "ipykernel_launcher",
+  "-f",
+  "{connection_file}"
+ ],
+ "display_name": "Python 3 (tensorflow2.0-gpu)",
+ "language": "python"
+}

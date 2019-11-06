@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "/media/dorawu/\u65b0\u589e\u78c1\u789f\u5340",
+  "password": false,
+  "pid": 7083,
+  "port": 8888,
+  "secure": false,
+  "token": "d6383d09892f9c503365bda129dcefa7dfea41327c073c0e",
+  "url": "http://localhost:8888/"
+}

@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "/home/dorawu/\u684c\u9762/GAN/GAN-python-notebook",
+  "password": false,
+  "pid": 17342,
+  "port": 8888,
+  "secure": false,
+  "token": "0fa76db4abd95ddd41af4a1a0fa8ce4b3ef82d9bed60f68f",
+  "url": "http://localhost:8888/"
+}
