@@ -1,5 +1,5 @@
-import cv2
+import os
 
-img=cv2.imread('unnamed.png')
-cv2.imshow('frame',img)
-#cv2.waitKey()
+gt=os.listdir(os.path.join('HW1_dataset','groundtruth'))
+gt=[int(path[5:8]) for path in gt]
+print(gt)

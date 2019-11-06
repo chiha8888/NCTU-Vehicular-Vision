@@ -3,6 +3,8 @@ import os
 import matplotlib.pyplot as plt
 from HW01.postprocess import postprocess
 from HW01.preprocess import preprocess
+gt=os.listdir(os.path.join('HW1_dataset','groundtruth'))
+gt=[int(path[5:8]) for path in gt]
 
 backSub=cv2.bgsegm.createBackgroundSubtractorMOG(history=260,backgroundRatio=0.4)
 capture=cv2.VideoCapture(cv2.samples.findFileOrKeep(os.path.join(os.path.join('HW1_dataset','input'),'in%06d.png')))
@@ -23,7 +25,10 @@ while True:
     cv2.imshow('fgMask',fgMask)
     plt.show()
     cv2.waitKey(1)
-
+    ''' save result (comparing with ground_truth)
+    if count in gt:
+        cv2.imwrite(os.path.join('EvaluationV2',os.path.join('results','{:0>6d}.png'.format(count))),fgMask)
+    '''
     count += 1
 
 '''
