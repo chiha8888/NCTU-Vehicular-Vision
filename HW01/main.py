@@ -19,12 +19,12 @@ while True:
         break
 
     fgMask=backSub.apply(preprocess(frame))
-    fgMask=postprocess(fgMask,30,26)
+    fgMask=postprocess(fgMask,25,20)
 
     cv2.imshow('frame',frame)
     cv2.imshow('fgMask',fgMask)
     plt.show()
-    cv2.waitKey(1)
+    cv2.waitKey(10)
     #save result (comparing with ground_truth)
     if count in gt:
         cv2.imwrite(os.path.join('EvaluationV2',os.path.join('results','{:0>6d}.png'.format(count))),fgMask)
