@@ -50,8 +50,6 @@ while True:
     cv2.waitKey(10)
     #save result (comparing with ground_truth)
     if count in gt:
-        if not os.path.exists(output_data_path):
-            os.makedirs(output_data_path)
         cv2.imwrite(os.path.join(output_data_path, '{:0>6d}.png'.format(count)), fgMask)
 
     count += 1
