@@ -1,6 +1,5 @@
-# NCTU-Vehicular-Vision
 
-## HW01 (Foreground Detection)
+# HW01 (Foreground Detection)
 
 postprocess  erode, dilate combination
 
@@ -14,4 +13,9 @@ Recall  | Specificity |   FPR   |   FNR   |   PWC   | Precision | FMeasure
 
 - Python 3.x
 - opencv-contrib-python     4.x
-- opencv-python             4.x       
+- opencv-python             4.x
+
+# HW02
+yolov3.h5: https://drive.google.com/open?id=1zC-23oyC9NJTkXHtpaRgnOjg5b-weXy4
+
+把距離公式放到depthEstimate/detect.py裡  
