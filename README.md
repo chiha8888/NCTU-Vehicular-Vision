@@ -16,6 +16,6 @@ Recall  | Specificity |   FPR   |   FNR   |   PWC   | Precision | FMeasure
 - opencv-python             4.x
 
 # HW02
-yolov3.h5: https://drive.google.com/open?id=1zC-23oyC9NJTkXHtpaRgnOjg5b-weXy4
+yolov3.h5: https://drive.google.com/open?id=1zC-23oyC9NJTkXHtpaRgnOjg5b-weXy4  
 
-把距離公式放到depthEstimate/detect.py裡  
+按'q'鍵離開  
