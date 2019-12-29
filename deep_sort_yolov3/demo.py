@@ -17,50 +17,55 @@ from deep_sort import nn_matching
 from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from tools import generate_detections as gdet
-from deep_sort.detection import Detection as ddet
+#from deep_sort.detection import Detection as ddet
 warnings.filterwarnings('ignore')
 
 def main(yolo):
 
-   # Definition of the parameters
+    # Definition of the parameters
     max_cosine_distance = 0.3
     nn_budget = None
     nms_max_overlap = 1.0
-    
-   # deep_sort 
+
+    # deep_sort
     model_filename = 'model_data/mars-small128.pb'
     encoder = gdet.create_box_encoder(model_filename,batch_size=1)
-    
+
     metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
     tracker = Tracker(metric)
 
     writeVideo_flag = True
-    
-    video_capture = cv2.VideoCapture('NYC _Street Fight.mp4')
+    video_capture = cv2.VideoCapture('output.avi')
 
     if writeVideo_flag:
-    # Define the codec and create VideoWriter object
+        # Define the codec and create VideoWriter object
         w,h = int(video_capture.get(3)),int(video_capture.get(4))
-        out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*'MJPG'), 20, (w, h))
+        out = cv2.VideoWriter('result.avi', cv2.VideoWriter_fourcc(*'MJPG'), 20, (w, h))
         list_file = open('detection.txt', 'w')
-        frame_index = -1 
-        
+        frame_index = -1
+
     fps = 0.0
+    f=0
     while True:
+        t1 = time.time()
         ret, frame = video_capture.read()
         if ret != True:
             break
-        t1 = time.time()
+        f+=1
+        if f%100!=0:
+            continue
+        else:
+            f=0
 
-       # image = Image.fromarray(frame)
+        # image = Image.fromarray(frame)
         image = Image.fromarray(frame[...,::-1]) #bgr to rgb
         boxs = yolo.detect_image(image) #boxs[i]:[x,y,width,height]
-       # print("box_num",len(boxs))
+        # print("box_num",len(boxs))
         features = encoder(frame,boxs)
-        
+
         # score to 1.0 here).
         detections = [Detection(bbox, 1.0, feature) for bbox, feature in zip(boxs, features)]
-        
+
         # Run non-maxima suppression.
         boxes = np.array([d.tlwh for d in detections])
         scores = np.array([d.confidence for d in detections])
@@ -75,7 +80,7 @@ def main(yolo):
         # track(predicted bounding of existing targets): white bounding box
         for track in tracker.tracks:
             if not track.is_confirmed() or track.time_since_update > 1:
-                continue 
+                continue
             bbox = track.to_tlbr()
             cv2.rectangle(frame, pt1=(int(bbox[0]), int(bbox[1])), pt2=(int(bbox[2]), int(bbox[3])),color=(255,255,255), thickness=2)
             cv2.putText(frame, text=str(track.track_id),org=(int(bbox[0]), int(bbox[1])),fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(0,255,0),thickness=2)
@@ -84,9 +89,9 @@ def main(yolo):
         for det in detections:
             bbox = det.to_tlbr()
             cv2.rectangle(frame,pt1=(int(bbox[0]), int(bbox[1])), pt2=(int(bbox[2]), int(bbox[3])),color=(0,0,255), thickness=2)
-            
+
         cv2.imshow('', frame)
-        
+
         if writeVideo_flag:
             # save a frame
             out.write(frame)
@@ -96,10 +101,10 @@ def main(yolo):
                 for i in range(0,len(boxs)):
                     list_file.write(str(boxs[i][0]) + ' '+str(boxs[i][1]) + ' '+str(boxs[i][2]) + ' '+str(boxs[i][3]) + ' ')
             list_file.write('\n')
-            
+
         fps = (fps+(1./(time.time()-t1)))/2
         print("fps= %f"%(fps))
-        
+
         # Press Q to stop!
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
